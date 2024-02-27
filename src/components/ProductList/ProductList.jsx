@@ -1,14 +1,41 @@
 import PropTypes from "prop-types";
-import ProductCard from "./ProductCard/ProductCard.jsx";
+import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 
-const ProductList = ({products}) => {
+const ProductList = ({products = []}) => {
+
+    if (products.length === 0) {
+        return (
+            <Typography variant="h3" component="h2">
+                Empty products
+            </Typography>
+
+        )
+    }
+
     return (
         <div>
-            {
-                products.map(product => {
-                    return (<ProductCard {...product} key={product.id}/>)
-                })
-            }
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>ID</TableCell>
+                            <TableCell>Brand</TableCell>
+                            <TableCell>Price</TableCell>
+                            <TableCell>Product</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {
+                            products.map(product => <TableRow key={product.id}>
+                                <TableCell>{product.id}</TableCell>
+                                <TableCell>{product.brand}</TableCell>
+                                <TableCell>{product.price}</TableCell>
+                                <TableCell>{product.product}</TableCell>
+                            </TableRow>)
+                        }
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </div>
     );
 };
